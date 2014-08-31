@@ -32,6 +32,18 @@ flatten([Head|Tail], Flattened) :-
 flatten([], []).
 flatten(Element, [Element]) :- not(is_list(Element)).
 
+%% Eliminate consecutive duplicates of list elements.
+eliminate_cons_duplicates([Head|[Head|Tail]], List) :-
+  eliminate_cons_duplicates([Head|Tail], List).
+
+eliminate_cons_duplicates([Head, Other|Tail], List) :-
+  not(Head is Other),
+  eliminate_cons_duplicates([Other|Tail], CleanTail),
+  append([Head], CleanTail, List).
+
+eliminate_cons_duplicates([Head], [Head]).
+
+eliminate_cons_duplicates([], []).
 
 
 
