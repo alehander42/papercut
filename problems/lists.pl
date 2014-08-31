@@ -21,6 +21,17 @@ reverse([], []).
 reverse([A|B], X) :-
   reverse(B, W), append(W, [A], X).
 
+%% Find out whether a list is a palindrome.
+is_palyndrome(Tail) :- reverse(Tail, Tail).
+
+%%  Flatten a nested list structure.
+flatten([Head|Tail], Flattened) :-
+  flatten(Head, FlattenedHead),
+  flatten(Tail, FlattenedTail),
+  append(FlattenedHead, FlattenedTail, Flattened).
+flatten([], []).
+flatten(Element, [Element]) :- not(is_list(Element)).
+
 
 
 
